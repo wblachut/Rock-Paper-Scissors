@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    body {
+      background-color: rgb(193, 196, 187);
+    }
+  </style>
+    <head><title>Play rock-paper-scissors</title></head>
+    <body>
+      <h1>Play rock-paper-scissors</h1>
+    </body>
+
+      <script>
+            function computerPlay() {
+      roleResult = Math.random();
+          switch (true) {
+            case (roleResult <= 0.3333):
+               result = 'rock';
+            break;
+            case (roleResult <= 0.6666):
+              result = 'paper';
+            break;
+            default:
+              result = 'scissors';
+  }
+  return result;
+    }
+        function playRound(playerSelection, computerSelection) {
+          // let playerSelection = prompt(`Play rock-paper-scissors by typing rock/paper/scissors`,'');
+          playerSelection = playerSelection.toLowerCase();
+          if (playerSelection === computerSelection) {
+            result = 'draw';
+            console.log(`Draw, double ${computerSelection}`);
+          } else {
+            if (playerSelection === 'rock' && computerSelection === 'scissors'
+            || playerSelection === 'scissors' && computerSelection === 'paper'
+            || playerSelection === 'paper' && computerSelection === 'rock') {
+              console.log(`You've won!, Your ${playerSelection} beats ${computerSelection}`)
+              result = 'win';
+            } else {
+              console.log(`You've lost!, Your ${playerSelection} loses to ${computerSelection}`)
+              result = 'lose';
+            }
+          }
+          return result;
+          // const playerSelection = 'rock'
+          // const computerSelection = computerPlay()
+        }
+
+        //console.log(playRound(playerSelection, computerSelection))
+        
+  
+  function game() {
+        let playerWins = 0;
+        let computerWins = 0;
+        for (let i = 0; i < 5; i++) {
+        playerSelection = prompt('RPS?','');
+        // playerSelection = computerPlay();
+        playRound(playerSelection, computerPlay());
+         if (result == 'win') {
+          playerWins++
+         } else if (result == 'lose') {
+           computerWins++
+         } else {
+           
+         }
+        }
+         findWinner();
+         
+         function findWinner () {
+           if (playerWins == computerWins) {
+             alert('Uhh, Result of the game of 5 is a DRAW');
+            } else if (playerWins > computerWins) {
+              alert('Hurray! You have WON the game of 5');
+            } else {
+              alert('I\'m sorry. You have LOST the game of 5');
+            }
+          }
+        }
+      
+
+
+
+
+        game();
+  
+</script>
+
+</html>
