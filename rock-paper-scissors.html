@@ -1,13 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <style>
-    body {
-      background-color: rgb(193, 196, 187);
-    }
-  </style>
-    <head><title>Play rock-paper-scissors</title></head>
-    <body>
-      <h1>Play rock-paper-scissors</h1>
+  <head>
+    <title>Play rock-paper-scissors</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro">
+  </head>
+  <body>
+    <div class="welcomebox">
+      <div class="box-default">
+        <span class="text-default">
+          welcome in the Rock, Paper, Scissors game vs CPU<br><br><br>
+          <span class="text-highlight"><b>choose your weapon !!</b></span> 
+        </span>
+      </div>
+    </div> 
+    <div class="rps">
+      <div data-box="rock" class="box-rock">
+        <span class="rock-text">Rock</span>
+      </div>
+      <div data-box="Paper" class="box-paper">
+        <span class="paper-text">Paper</span>
+      </div>
+        <div data-box="Scissors" class="box-scissors">
+        <span class="scissors-text">Scissors</span>
+      </div>
+    </div>
+    <div>
+      <div data-box="Counter" class="box-counter">
+    </div>
+    <!-- Counters Here -->
+    <!-- <div class="box-counter-player"> -->
+      <div class="box-counter-player">
+          <span class="text-default"> Your score <br><br><b>
+            <ul class = "counters">
+              <li>◆</li>
+              <li>◆</li>
+              <li>◆</li>
+              <li>◆</li>
+              <li>◆</li>
+            </ul>
+          </b></span></span>
+      </div> 
+    <!-- </div> -->
+      <div class="box-counter-cpu">           
+        <span class="text-default"> CPU Score <br><br></span>
+          <ul class = "counters">
+            <li>■</li>
+            <li>■</li>
+            <li>■</li>
+            <li>■</li>
+      </ul>
+      </div>                
+              </div>
+
     </body>
 
       <script>
@@ -76,13 +121,27 @@
               alert('I\'m sorry. You have LOST the game of 5');
             }
           }
-        }
-      
+  }
+  //
+        const boxRock = document.querySelector('#box-rock');
+        const boxPaper = document.querySelector('#box-paper');
+        const boxScissors = document.querySelector('#box-scissors');
+        // boxRock.addEventListener('click', playRound('rock',computerSelection));
+        // boxRock.addEventListener('click', playRound('rock',computerSelection));
+       
+        boxRock.addEventListener('click', () => {
+  alert("Hello World");
+});
+        boxPaper.addEventListener('click', playRound('paper',computerSelection));
+        boxScissors.addEventListener('click', playRound('scissors',computerSelection));
+        
+        
+         //  function playRound('rock', computerSelection);
+       
 
 
 
-
-        game();
+        
   
 </script>
 
