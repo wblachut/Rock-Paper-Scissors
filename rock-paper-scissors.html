@@ -15,41 +15,29 @@
       </div>
     </div> 
     <div class="rps">
-      <div data-box="rock" class="box-rock">
+      <div data-box="rock" class="box-rock box">
         <span class="rock-text">Rock</span>
       </div>
-      <div data-box="Paper" class="box-paper">
+      <div data-box="Paper" class="box-paper box">
         <span class="paper-text">Paper</span>
       </div>
-        <div data-box="Scissors" class="box-scissors">
+        <div data-box="Scissors" class="box-scissors box">
         <span class="scissors-text">Scissors</span>
       </div>
     </div>
     <div>
-      <div data-box="Counter" class="box-counter">
+      <div class= "box-counter">
     </div>
     <!-- Counters Here -->
     <!-- <div class="box-counter-player"> -->
-      <div class="box-counter-player">
-          <span class="text-default"> Your score <br><br><b>
-            <ul class = "counters">
-              <li>◆</li>
-              <li>◆</li>
-              <li>◆</li>
-              <li>◆</li>
-              <li>◆</li>
-            </ul>
-          </b></span></span>
+      <div class="box-counter-player counters">
+          <span class="text-default"> Your score </span>
+            <ul class = "counters"></ul>
       </div> 
     <!-- </div> -->
-      <div class="box-counter-cpu">           
-        <span class="text-default"> CPU Score <br><br></span>
-          <ul class = "counters">
-            <li>■</li>
-            <li>■</li>
-            <li>■</li>
-            <li>■</li>
-      </ul>
+      <div class="box-counter-cpu counters">           
+        <span class="text-default"> CPU Score </span>
+          <ul class = "counters"></ul>
       </div>                
               </div>
 
@@ -70,48 +58,60 @@
   }
   return result;
     }
-        function playRound(playerSelection, computerSelection) {
-          // let playerSelection = prompt(`Play rock-paper-scissors by typing rock/paper/scissors`,'');
+    function playRound(playerSelection) {
           playerSelection = playerSelection.toLowerCase();
+          computerSelection = computerPlay();
           if (playerSelection === computerSelection) {
             result = 'draw';
             console.log(`Draw, double ${computerSelection}`);
           } else {
-            if (playerSelection === 'rock' && computerSelection === 'scissors'
-            || playerSelection === 'scissors' && computerSelection === 'paper'
-            || playerSelection === 'paper' && computerSelection === 'rock') {
-              console.log(`You've won!, Your ${playerSelection} beats ${computerSelection}`)
-              result = 'win';
-            } else {
-              console.log(`You've lost!, Your ${playerSelection} loses to ${computerSelection}`)
-              result = 'lose';
+              if (playerSelection === 'rock' && computerSelection === 'scissors'
+              || playerSelection === 'scissors' && computerSelection === 'paper'
+              || playerSelection === 'paper' && computerSelection === 'rock') {
+                console.log(`You've won!, Your ${playerSelection} beats ${computerSelection}`);
+                result = 'win';
+                const counters = document.querySelector(`div.box-counter-player`);
+                let counterLi = document.createElement('li');
+                counterLi.textContent = `◆`;
+                counters.appendChild(counterLi);
+                counterLi.classList.add('win', 'player-counter');
+                // const clickedBox = document.querySelector(`.box-${playerSelection}`);
+                // console.log('clickedBox')
+              // removeTransition(counterLi);
+
+              // const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+
+              } else {
+                console.log(`You've lost!, Your ${playerSelection} loses to ${computerSelection}`);
+                result = 'lose';
+                const counters = document.querySelector(`div.box-counter-cpu`);
+                let counterLi = document.createElement('li');
+                counterLi.textContent = `◆`;
+                counters.appendChild(counterLi);
+                counterLi.classList.add('lose', 'cpu-counter');
             }
           }
-          return result;
-          // const playerSelection = 'rock'
-          // const computerSelection = computerPlay()
-        }
-
-        //console.log(playRound(playerSelection, computerSelection))
-        
+          endOfGame();
+      return result;
+    }
   
-  function game() {
+    function game() {
         let playerWins = 0;
         let computerWins = 0;
         for (let i = 0; i < 5; i++) {
         playerSelection = prompt('RPS?','');
         // playerSelection = computerPlay();
-        playRound(playerSelection, computerPlay());
+        playRound(playerSelection);
          if (result == 'win') {
           playerWins++
          } else if (result == 'lose') {
            computerWins++
          } else {
-           
          }
         }
+
          findWinner();
-         
+
          function findWinner () {
            if (playerWins == computerWins) {
              alert('Uhh, Result of the game of 5 is a DRAW');
@@ -123,26 +123,82 @@
           }
   }
   //
-        const boxRock = document.querySelector('#box-rock');
-        const boxPaper = document.querySelector('#box-paper');
-        const boxScissors = document.querySelector('#box-scissors');
-        // boxRock.addEventListener('click', playRound('rock',computerSelection));
-        // boxRock.addEventListener('click', playRound('rock',computerSelection));
-       
-        boxRock.addEventListener('click', () => {
-  alert("Hello World");
-});
-        boxPaper.addEventListener('click', playRound('paper',computerSelection));
-        boxScissors.addEventListener('click', playRound('scissors',computerSelection));
-        
-        
-         //  function playRound('rock', computerSelection);
-       
-
-
-
-        
+  const boxRock = document.querySelector('.box-rock');
+  const boxPaper = document.querySelector('.box-paper');
+  const boxScissors = document.querySelector('.box-scissors');
   
+  boxRock.addEventListener('click', (e) => {
+    playRound(boxRock.innerText.toLowerCase());
+    boxRock.classList.add('pressed');
+    // removeTransition(boxRock);
+  });
+  boxPaper.addEventListener('click', (e) => {
+    playRound(boxPaper.innerText.toLowerCase());
+    boxPaper.classList.add('pressed');
+  });
+  boxScissors.addEventListener('click', (e) => {
+    playRound(boxScissors.innerText.toLowerCase());
+    boxScissors.classList.add('pressed');
+  });
+  
+  function endOfGame() {
+    // number of counters equals 5 or 5th element exist
+  let wins = document.querySelectorAll(`.player-counter`);
+  let loses = document.querySelectorAll(`.cpu-counter`);
+  let rps = document.querySelector(`.rps`);
+          if (+(wins.length) === 5) {
+              while (rps.firstChild) {
+                rps.removeChild(rps.lastChild);
+              }
+            console.log(`Hurray! You have WON the game of 5`);
+            setTimeout(function() { location.reload();}, 7000);
+          } else if (+(loses.length) === 5) {
+            console.log(`I\'m sorry. You have LOST the game of 5`);
+            rps.innerHTML = ""
+            setTimeout(function() { location.reload();}, 7000);
+          }
+          // window.addEventListener('click', location.reload());
+          };
+          
+
+
+
+
+      //   const clickedBox = document.querySelector(`.box[data-box="box.innerText.toLowerCase()"]`);
+    
+      //   function removeTransition(element) {
+      //   if (element.propertyName !== 'transform') return; //skips if it's not transform
+      //     this.classList.remove('win lose pressed');
+      //         // 
+      
+      
+      
+      
+    //   const box = Array.from(document.querySelector('.box'));
+      //   const boxes = Array.from(document.querySelectorAll('.box'));
+        // boxes.forEach(box =>
+        //      box.addEventListener('click', (e) => { 
+        //        playRound(box.innerText.toLowerCase());
+        //       // clickedBox.classList.add('pressed');));
+        //       }));
+      
+
+
+               //removeTransition(box);
+
+            // removeTransition(boxRock);
+        
+            
+
+
+          //   }
+          // }
+       
+
+
+
+        
+         // endOfGame();
 </script>
 
 </html>
