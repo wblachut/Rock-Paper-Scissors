@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Play rock-paper-scissors</title>
+    <title>Rock-paper-scissors 🗿📜✂ WB</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro">
   </head>
@@ -9,7 +9,7 @@
     <div class="welcomebox">
       <div class="box-default">
         <span class="text-default">
-          <br>welcome in the Rock, Paper, Scissors game vs CPU<br><br><br>
+          <br>Welcome in the Rock, Paper, Scissors game vs CPU<br><br><br>
           <span class="text-highlight"><b>choose your weapon:</b></span><br><br> 
         </span>
       </div>
@@ -70,7 +70,6 @@
                 console.log(`You've won!, Your ${playerSelection} beats ${computerSelection}`);
                 countersPlayer.appendChild(counterLi);
                 counterLi.classList.add('win', 'player-counter'); // win will be lost, player-counter used later
-                // counterLi.addEventListener('transitionend', removeTransition);
 
           } else {
                 console.log(`You've lost!, Your ${playerSelection} loses to ${computerSelection}`);
@@ -82,14 +81,17 @@
           endOfRound();
           }  
   
-  
-              // 
 
-
-  //
   const boxRock = document.querySelector('.box-rock');
   const boxPaper = document.querySelector('.box-paper');
   const boxScissors = document.querySelector('.box-scissors');
+  const box = document.querySelector('.box');
+  const boxes = Array.from(document.querySelectorAll('.box'));
+  const counter = document.querySelector('li');
+  const counters = Array.from(document.querySelectorAll('li'));
+
+  boxes.forEach(box => box.addEventListener('transitionend', removeTransition));
+  counters.forEach(counter => counter.addEventListener('transitionend', removeTransition));
   
   boxRock.addEventListener('click', (e) => {
     playRound(boxRock.innerText.toLowerCase());
@@ -103,13 +105,6 @@
     playRound(boxScissors.innerText.toLowerCase());
     boxScissors.classList.add('pressed');
   });
-  const box = document.querySelector('.box');
-  const boxes = Array.from(document.querySelectorAll('.box'));
-  boxes.forEach(box => box.addEventListener('transitionend', removeTransition));
-
-  const counter = document.querySelector('li');
-  const counters = Array.from(document.querySelectorAll('li'));
-  counters.forEach(counter => counter.addEventListener('transitionend', removeTransition));
 
   function removeTransition(e) {
       if (e.propertyName !== 'transform') return; //skips if it's not transform
@@ -120,12 +115,12 @@
     const wins = document.querySelectorAll(`.player-counter`);
     const loses = document.querySelectorAll(`.cpu-counter`);
     const rps = document.querySelector(`.rps`);
-    let announcer = document.createElement('div');
+    const announcer = document.createElement('div');
     const countersPlayer = document.querySelector(`div.box-counter-player`);
     const countersCpu = document.querySelector(`div.box-counter-cpu`);
     const welcomeBox = document.querySelector(`.welcomebox`);
     const welcomeBoxDiv = document.querySelector(`div.box-default`);
-    let playAgain = document.createElement('div');
+    const playAgain = document.createElement('div');
 
           if (+(wins.length) > 4) {
             console.log(`Hurray! You have WON the game of 5`);
@@ -154,18 +149,7 @@
               {window.location.reload(true);})
           };
   }  
-  
 
-
-    //   const box = Array.from(document.querySelector(`.box[data-box="box.innerText.toLowerCase()"]`));
-    //   const clickedBox = document.querySelector;
-
-    //   const box = document.querySelector('.box');
-    //   const boxes = Array.from(document.querySelectorAll('.box'));
-        // boxes.forEach(box => box.addEventListener('click', (e) => { 
-        //        playRound(box.innerText.toLowerCase());
-        //       box.classList.add('pressed');));
-        //       }));
 </script>
 
 </html>
