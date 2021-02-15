@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WB |The Odin Project| Rock-paper-scissors 🗿📜✂  </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro">
+  </head>
+  <body>
+    <div class="welcomebox">
+      <div class="box-default">
+        <span class="text-default">
+          <br>Welcome in the Rock, Paper, Scissors game vs CPU<br><br><br>
+          <span class="text-highlight"><b>choose your weapon:</b></span><br><br> 
+        </span>
+      </div>
+    </div> 
+    <div class="rps">
+      <div data-box="rock" class="box-rock box">
+        <span class="rock-text">Rock</span>
+      </div>
+      <div data-box="Paper" class="box-paper box">
+        <span class="paper-text">Paper</span>
+      </div>
+        <div data-box="Scissors" class="box-scissors box">
+        <span class="scissors-text">Scissors</span>
+      </div>
+    </div>
+    <div>
+      <div class= "box-counter">
+    </div>
+      <div class="box-counter-player counters">
+     Your score
+            <ul class = ""></ul>
+      </div> 
+      <div class="box-counter-cpu counters">           
+     Computer Score 
+          <ul class = "counter-reverse"></ul>
+      </div>                
+              </div>
+
+    </body>
+
+      <script>
+            function computerPlay() {
+      roleResult = Math.random();
+          switch (true) {
+            case (roleResult <= 0.3333):
+               result = 'rock';
+            break;
+            case (roleResult <= 0.6666):
+              result = 'paper';
+            break;
+            default:
+              result = 'scissors';
+  }
+  return result;
+    }
+    function playRound(playerSelection) {
+          playerSelection = playerSelection.toLowerCase();
+          computerSelection = computerPlay();
+          const countersPlayer = document.querySelector(`div.box-counter-player`);
+          const countersCpu = document.querySelector(`div.box-counter-cpu`);
+          let counterLi = document.createElement('li');
+          counterLi.textContent = `◆`;            
+          if (playerSelection === computerSelection) {
+            console.log(`Draw, double ${computerSelection}`);
+          } else if (playerSelection === 'rock' && computerSelection === 'scissors'
+                 || playerSelection === 'scissors' && computerSelection === 'paper'
+                 || playerSelection === 'paper' && computerSelection === 'rock') {
+                console.log(`You've won!, Your ${playerSelection} beats ${computerSelection}`);
+                countersPlayer.appendChild(counterLi);
+                counterLi.classList.add('win', 'player-counter');
+
+          } else {
+                console.log(`You've lost!, Your ${playerSelection} loses to ${computerSelection}`);
+                counterLi.textContent = `◆`;
+                countersCpu.appendChild(counterLi);
+                counterLi.classList.add('lose', 'cpu-counter');
+          } 
+          endOfRound();
+          }  
+  
+
+  const boxRock = document.querySelector('.box-rock');
+  const boxPaper = document.querySelector('.box-paper');
+  const boxScissors = document.querySelector('.box-scissors');
+  const box = document.querySelector('.box');
+  const boxes = Array.from(document.querySelectorAll('.box'));
+  const counter = document.querySelector('li');
+  const counters = Array.from(document.querySelectorAll('li'));
+
+  boxes.forEach(box => box.addEventListener('transitionend', removeTransition));
+  counters.forEach(counter => counter.addEventListener('transitionend', removeTransition));
+  
+  boxRock.addEventListener('click', (e) => {
+    playRound(boxRock.innerText.toLowerCase());
+    boxRock.classList.add('pressed');
+  });
+  boxPaper.addEventListener('click', (e) => {
+    playRound(boxPaper.innerText.toLowerCase());
+    boxPaper.classList.add('pressed');
+  });
+  boxScissors.addEventListener('click', (e) => {
+    playRound(boxScissors.innerText.toLowerCase());
+    boxScissors.classList.add('pressed');
+  });
+
+  function removeTransition(e) {
+      if (e.propertyName !== 'transform') return;
+        this.classList.remove('win', 'lose', 'pressed');
+    }
+  
+  function endOfRound() {
+    const wins = document.querySelectorAll(`.player-counter`);
+    const loses = document.querySelectorAll(`.cpu-counter`);
+    const rps = document.querySelector(`.rps`);
+    const announcer = document.createElement('div');
+    const countersPlayer = document.querySelector(`div.box-counter-player`);
+    const countersCpu = document.querySelector(`div.box-counter-cpu`);
+    const welcomeBox = document.querySelector(`.welcomebox`);
+    const welcomeBoxDiv = document.querySelector(`div.box-default`);
+    const playAgain = document.createElement('div');
+
+          if (+(wins.length) > 4) {
+            console.log(`Hurray! You have WON the game of 5`);
+            announcer.textContent = `Hurrray! You've WON`;
+            popUpWinner();
+            announcer.classList.add('box-default', 'box-win');
+            countersPlayer.classList.add('box-counter-win');
+          } else if (+(loses.length) > 4) {
+            console.log(`I\'m sorry. You have LOST the game of 5`);
+            announcer.textContent = `I\'m sorry... This time the computer was better!`;
+            popUpWinner();
+            announcer.classList.add('box-default', 'box-lose');
+            countersCpu.classList.add('box-counter-lose');
+          };
+
+          function popUpWinner() {
+            while (rps.firstChild) {
+                rps.removeChild(rps.lastChild);
+            }
+            welcomeBox.removeChild(welcomeBoxDiv);
+            welcomeBox.appendChild(announcer);
+            playAgain.textContent = `Play again` ;
+            playAgain.classList.add('box-default', 'box-play-again');
+            rps.appendChild(playAgain);
+            playAgain.addEventListener('click', (e) =>
+              {window.location.reload(true);})
+          };
+  }  
+
+</script>
+
+</html>
