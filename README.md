@@ -1,6 +1,6 @@
 # Rock-paper-scissors
 
-Play vs the computer [here](https://wblachut.github.io/Rock-Paper-Scissors_TheOdinProject/)!
+Play vs the computer [here](https://wblachut.github.io/Rock-paper-scissors_TheOdinProject/)!
 
 ## PROJECT: LIBRARY
 
